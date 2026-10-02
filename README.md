@@ -184,7 +184,7 @@ node ..\verify-whale-bridge.mjs      # 71/71 通过则退出码 0
 | profile 清单 | `C:\Users\coh23\.dsh\profiles\desktop\package.json` → `dsh.profile.bundles` 末尾新增 `"dsh-whale-bridge"`（未动 `dependencies`，以免影响 pnpm 的 lockfile） |
 | 清单备份 | `E:\1\_backup\desktop-package.json.<时间戳>.bak` |
 | 被串联插件的原始副本 | `E:\1\_backup\pet-whale-original\`、`E:\1\_backup\dsh-whale-widget-original\` |
-| 已装文件哈希（SHA256 前 16 位，0.3.2） | `lib/client.js` = `5794A26A86859212`、`package.json` = `3407F18C5EA9BC36`、`lib/index.js` = `C60B45FBD9E2736B`、`cordis.patch.yml` = `A6A389EC44E68EE1`、`icon.svg` = `448EBF22280E9091`、`locale/zh.json` = `7E0E1528DA392595`、`locale/en.json` = `5D9B8E926222CCF6`（与工作区逐文件一致；README.md 自身会因为写入这行哈希而变，故不列。工作区的 `package.json` 之后为发布补了元数据、并新增了 `LICENSE`/`PUBLISHING.md`，见 §8——profile 里那份运行时拷贝未动，行为一致） |
+| 已装文件哈希（SHA256 前 16 位，0.3.2） | `lib/client.js` = `5794A26A86859212`、`package.json` = `3407F18C5EA9BC36`、`lib/index.js` = `C60B45FBD9E2736B`、`cordis.patch.yml` = `A6A389EC44E68EE1`、`icon.svg` = `448EBF22280E9091`、`locale/zh.json` = `7E0E1528DA392595`、`locale/en.json` = `5D9B8E926222CCF6`（与工作区逐文件一致；README.md 自身会因为写入这行哈希而变，故不列。**工作区的 `package.json` 后来为发布补了元数据、并把 5 处 `YOUR_GITHUB_NAME` 占位符替换成 `COH2357`**，当前值是 `11E58CCB0363B70E`（1516 B）、`LICENSE` = `868845B3758ED3EF`（1064 B）、`.gitignore` = `490C3941BD40041E`（50 B）——profile 里那份运行时拷贝**未动**，仍是本行这组值，行为一致；发布细节见 §8 与 `PUBLISHING.md`） |
 | 生效方式 | 设置页新增的 6 个字段（`leanMaxDeg` 等）来自**宿主半**，要看到它们需**重启 DSH 桌面端**；若只用默认值、不打算改设置，重载界面窗口（窗口内 `Ctrl+R`）即可用上新客户端半。§2 的样式守护也在客户端半：**改完文件后要重载一次窗口（`Ctrl+R`）才会生效**（客户端半是随页面加载/热重载下发的，光拷文件不一定马上跑）；重载后若桌宠正处于"超大裸奔"或"菜单常驻展开"状态，它会被就地修回真样式 |
 
 回退（任选其一）：
@@ -209,10 +209,10 @@ Copy-Item 'E:\1\_backup\desktop-package.json.<时间戳>.bak' 'C:\Users\coh23\.d
 
 本机这套是"手工装进 profile"（§7）。要让别人能像装 `pet-whale`、`dsh-whale-widget` 那样**一句话安装**、或在插件市场里搜到，需要两件事（都不改代码）：
 
-1. 把本目录放到一个公开 GitHub 仓库（市场只管收录 GitHub 仓库）；
-2. 往精选列表 [awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin) 提一个 YAML 小文件的 PR（站点与市场会自动收录，通常一天内生效）。
+1. 把本目录放到一个公开 GitHub 仓库（市场只管收录 GitHub 仓库）——目标仓库 `https://github.com/COH2357/dsh-whale-bridge`；本地 `E:\1\dsh-whale-bridge\` 已经 `git init -b main` + 首个提交（`7b5eb71`）+ 配好 `origin`，仓库建好后 `git push -u origin main` 即可；
+2. 往精选列表 [awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin) 提一个 YAML 小文件的 PR（站点与市场会自动收录，通常一天内生效）——条目文件已生成在 `E:\1\awesome-dsh-plugin-pr\data\plugins\COH2357__dsh-whale-bridge.yml`（同目录 `提交流程.md` 是步骤清单），提交路径 `data/plugins/COH2357__dsh-whale-bridge.yml`。
 
-发布到 npm 可选（能显示下载量、安装更快）。**每个命令、要粘贴的文件内容、审查要点**见 [`PUBLISHING.md`](./PUBLISHING.md)。
+发布到 npm 可选（能显示下载量、安装更快），包名 `dsh-whale-bridge` 未被占用。**每个命令、要粘贴的文件内容、审查要点**见 [`PUBLISHING.md`](./PUBLISHING.md)——那里的 5 处 `YOUR_GITHUB_NAME` 占位符已全部替换成 `COH2357`。
 
 > 与运行时无关：发布用的 `package.json` 元数据（`repository`/`keywords`/`engines`/`publishConfig`）、新增的 `LICENSE` 都只影响 npm/GitHub 展示，**不改插件行为**。因此 profile 里那份运行时拷贝（§7）无需同步；真要同步就按 §4 重拷一次，并记得重载窗口（`Ctrl+R`）。
 
