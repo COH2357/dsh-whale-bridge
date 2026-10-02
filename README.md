@@ -1,6 +1,6 @@
 # dsh-whale-bridge
 
-桌宠 `pet-whale` 与 `dsh-whale-widget`（余额鲸鱼挂件）之间的**串联插件**：它不改动这两个插件的任何源文件，只是站在旁边观察它们的 DOM，并在合适的时机替用户"点一下"。
+桌宠 [`pet-whale`](https://github.com/nzl153/dsh-pet-whale) 与 [`dsh-whale-widget`](https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget)（余额鲸鱼挂件）之间的**串联插件**：它不改动这两个插件的任何源文件，只是站在旁边观察它们的 DOM，并在合适的时机替用户"点一下"。
 
 | 场景 | 桥接做的事 |
 | --- | --- |
@@ -21,8 +21,8 @@ pet-whale ─────────────────────▶ 假
 
 排查结论（两个插件都翻过源码了）：
 
-* **pet-whale 1.2.6**：客户端没有导出任何 API，没有自定义事件、没有 `postMessage`，只有 localStorage 键 `pet-whale:pretend`。但它把 `.pet-official` / `.dsh-whale-menu` 直接放在普通 DOM 里（**没有 shadow DOM**），右键菜单项 `💼 假装工作` 的处理函数**没有 `isTrusted` 校验**，而且 `openMenu → buildMenu` 是同步的。
-* **dsh-whale-widget 0.3.16**：同样没有气泡 API（只暴露 `window.__dshWhaleRoot` 给外部定位）。它的点击判定 `isWhaleHit(e)` **只读 `e.clientX / e.clientY`**（把坐标映射进 610×610 的贴图再读 alpha），挂件是 `pointerdown`/`pointerup`/`bubbleBox.click` 三段式，也没有 `isTrusted` 校验。
+* **pet-whale 1.2.6**（[nzl153/dsh-pet-whale](https://github.com/nzl153/dsh-pet-whale)）：客户端没有导出任何 API，没有自定义事件、没有 `postMessage`，只有 localStorage 键 `pet-whale:pretend`。但它把 `.pet-official` / `.dsh-whale-menu` 直接放在普通 DOM 里（**没有 shadow DOM**），右键菜单项 `💼 假装工作` 的处理函数**没有 `isTrusted` 校验**，而且 `openMenu → buildMenu` 是同步的。
+* **dsh-whale-widget 0.3.16**（[MeteorNOX/DeepSeek-Balance-Whale-Widget](https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget)）：同样没有气泡 API（只暴露 `window.__dshWhaleRoot` 给外部定位）。它的点击判定 `isWhaleHit(e)` **只读 `e.clientX / e.clientY`**（把坐标映射进 610×610 的贴图再读 alpha），挂件是 `pointerdown`/`pointerup`/`bubbleBox.click` 三段式，也没有 `isTrusted` 校验。
 
 所以桥接用"同一同步任务内派发合成事件"实现，**全程不产生中间绘制**：菜单不会闪一下，气泡也不会闪一下。
 
