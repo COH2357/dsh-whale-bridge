@@ -1,0 +1,5 @@
+# dsh-whale-bridge：把本 bundle 插入 profile 的插件列表。
+# id/name 均为包名；设置命名空间 = 条目 id（'dsh-whale-bridge'）。
+- insert:
+    - id: dsh-whale-bridge
+      name: dsh-whale-bridge

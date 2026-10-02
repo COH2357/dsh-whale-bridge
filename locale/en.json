@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Whale bridge",
+    "description": "Ties pet-whale and dsh-whale-widget together: the pet starts pretending to work near the widget, and the widget speaks a default line when it spots the pet"
+  }
+}

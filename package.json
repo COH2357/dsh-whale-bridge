@@ -1,0 +1,63 @@
+{
+  "name": "dsh-whale-bridge",
+  "version": "0.3.2",
+  "description": "串联 pet-whale 与 dsh-whale-widget：桌宠靠近挂件时进入「假装工作」并转身面向挂件，挂件扫到桌宠时用默认气泡播一条默认文字（不改动两个前置插件的源文件）",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "pet-whale",
+    "dsh-whale-widget",
+    "whale",
+    "desktop-pet",
+    "bridge",
+    "widget"
+  ],
+  "homepage": "https://github.com/COH2357/dsh-whale-bridge#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/COH2357/dsh-whale-bridge.git"
+  },
+  "bugs": {
+    "url": "https://github.com/COH2357/dsh-whale-bridge/issues"
+  },
+  "author": "COH2357",
+  "type": "module",
+  "icon": "./icon.svg",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./locale/*.json": "./locale/*.json"
+  },
+  "files": [
+    "icon.svg",
+    "locale/*.json",
+    "lib/index.js",
+    "lib/client.js",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true
+    }
+  }
+}
